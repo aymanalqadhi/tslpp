@@ -1,15 +1,25 @@
-﻿# CMakeList.txt : CMake project for zspp, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.16)
 
-project ("zspp")
+# project name
+project (
+  tslpp 
+  LANGUAGES CXX
+  VERSION "0.0.1"
+  DESCRIPTION "A simple modern-c++ serialization library")
 
-# Add source to this project's executable.
-add_executable (zspp "zspp.cpp" "zspp.h")
+# project files
+set (MODULE_FILES mod/error.ixx
+                  mod/buffer.ixx
+                  mod/converters/integer.ixx
+                  mod/converters/converters.ixx
+                  mod/io/basic_reader.ixx
+                  mod/io/basic_writer.ixx
+                  mod/io/io.ixx
+                  mod/tslpp.ixx)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET zspp PROPERTY CXX_STANDARD 20)
-endif()
+# targets
+add_library (${PROJECT_NAME} STATIC ${MODULE_FILES})
 
-# TODO: Add tests and install targets if needed.
+# target options
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
